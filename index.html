@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EcoPlay — Recicla, Gana, Transforma</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+<!-- PARTÍCULAS DE FONDO -->
+<canvas id="particles-canvas"></canvas>
+
+<!-- NOTIFICACIÓN FLOTANTE -->
+<div class="toast" id="toast">
+  <span class="toast-icon">🌿</span>
+  <span class="toast-msg" id="toast-msg">¡Acción registrada!</span>
+</div>
+
+<!-- LLUVIA DE MONEDAS -->
+<div id="coin-rain" class="coin-rain-container"></div>
+
+<!-- ===== HEADER ===== -->
+<header class="header">
+  <div class="header-inner">
+    <div class="logo">
+      <span class="logo-icon">♻</span>
+      <span class="logo-text">Eco<strong>Play</strong></span>
+    </div>
+    <nav class="nav" id="main-nav">
+      <button class="nav-btn active" data-tab="inicio">Inicio</button>
+      <button class="nav-btn" data-tab="registrar">Registrar</button>
+      <button class="nav-btn" data-tab="recompensas">Recompensas</button>
+      <button class="nav-btn" data-tab="ranking">Ranking</button>
+    </nav>
+    <div class="header-user">
+      <div class="ecocoins-badge">
+        <span class="coin-icon">🪙</span>
+        <span id="header-coins">0</span> EcoCoins
+      </div>
+      <div class="avatar" id="user-avatar">TC</div>
+    </div>
+  </div>
+</header>
+
+<!-- ===== HERO ===== -->
+<section class="hero" id="tab-inicio">
+  <div class="hero-content">
+    <div class="eyebrow">🌱 Gamificación Ecológica</div>
+    <h1 class="hero-title">Recicla.<br>Gana.<br>Transforma.</h1>
+    <p class="hero-sub">Convierte tus hábitos sostenibles en EcoCoins y canjéalos por recompensas reales en tu comunidad.</p>
+    <div class="hero-cta-group">
+      <button class="btn-primary" onclick="switchTab('registrar')">Registrar acción</button>
+      <button class="btn-ghost" onclick="switchTab('recompensas')">Ver recompensas</button>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="stat-card">
+      <span class="stat-num" data-target="12840">0</span>
+      <span class="stat-label">Acciones registradas</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-num" data-target="3210">0</span>
+      <span class="stat-label">Usuarios activos</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-num" data-target="890">0</span>
+      <span class="stat-label">Recompensas canjeadas</span>
+    </div>
+  </div>
+  <!-- Nivel del usuario -->
+  <div class="user-level-card">
+    <div class="level-info">
+      <div class="level-badge">Nv. <span id="user-level">1</span></div>
+      <div>
+        <div class="level-title" id="level-title">Semilla Verde</div>
+        <div class="level-sub">Tu aventura ecológica acaba de comenzar</div>
+      </div>
+    </div>
+    <div class="xp-bar-wrap">
+      <div class="xp-bar-track">
+        <div class="xp-bar-fill" id="xp-bar" style="width:0%"></div>
+      </div>
+      <span class="xp-label"><span id="xp-current">0</span> / <span id="xp-next">100</span> XP</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===== REGISTRAR ACCIÓN ===== -->
+<section class="page-section hidden" id="tab-registrar">
+  <div class="section-header">
+    <h2>Registrar Acción</h2>
+    <p>Cada pequeño gesto cuenta. Elige tu acción y acumula puntos.</p>
+  </div>
+
+  <div class="actions-grid">
+    <!-- PLÁSTICO -->
+    <div class="action-card" data-action="plastico" data-coins="15" data-xp="20">
+      <div class="action-icon">🧴</div>
+      <div class="action-name">Reciclé plástico</div>
+      <div class="action-reward"><span class="coin-small">🪙</span> 15 EcoCoins</div>
+      <div class="action-xp">+20 XP</div>
+      <button class="btn-register">Registrar</button>
+    </div>
+    <!-- VIDRIO -->
+    <div class="action-card" data-action="vidrio" data-coins="20" data-xp="25">
+      <div class="action-icon">🫙</div>
+      <div class="action-name">Reciclé vidrio</div>
+      <div class="action-reward"><span class="coin-small">🪙</span> 20 EcoCoins</div>
+      <div class="action-xp">+25 XP</div>
+      <button class="btn-register">Registrar</button>
+    </div>
+    <!-- PAPEL -->
+    <div class="action-card" data-action="papel" data-coins="10" data-xp="15">
+      <div class="action-icon">📦</div>
+      <div class="action-name">Reciclé papel / cartón</div>
+      <div class="action-reward"><span class="coin-small">🪙</span> 10 EcoCoins</div>
+      <div class="action-xp">+15 XP</div>
+      <button class="btn-register">Registrar</button>
+    </div>
+    <!-- METAL -->
+    <div class="action-card" data-action="metal" data-coins="25" data-xp="30">
+      <div class="action-icon">🥫</div>
+      <div class="action-name">Reciclé metal / latas</div>
+      <div class="action-reward"><span class="coin-small">🪙</span> 25 EcoCoins</div>
+      <div class="action-xp">+30 XP</div>
+      <button class="btn-register">Registrar</button>
+    </div>
+    <!-- ORGÁNICO -->
+    <div class="action-card" data-action="organico" data-coins="12" data-xp="18">
+      <div class="action-icon">🍃</div>
+      <div class="action-name">Composté residuos orgánicos</div>
+      <div class="action-reward"><span class="coin-small">🪙</span> 12 EcoCoins</div>
+      <div class="action-xp">+18 XP</div>
+      <button class="btn-register">Registrar</button>
+    </div>
+    <!-- ELECTRÓNICO -->
+    <div class="action-card featured" data-action="electronico" data-coins="50" data-xp="60">
+      <div class="featured-tag">⭐ Bonus x2</div>
+      <div class="action-icon">📱</div>
+      <div class="action-name">Entregué electrónicos</div>
+      <div class="action-reward"><span class="coin-small">🪙</span> 50 EcoCoins</div>
+      <div class="action-xp">+60 XP</div>
+      <button class="btn-register">Registrar</button>
+    </div>
+    <!-- BICICLETA -->
+    <div class="action-card" data-action="bicicleta" data-coins="18" data-xp="22">
+      <div class="action-icon">🚲</div>
+      <div class="action-name">Usé bicicleta en lugar de auto</div>
+      <div class="action-reward"><span class="coin-small">🪙</span> 18 EcoCoins</div>
+      <div class="action-xp">+22 XP</div>
+      <button class="btn-register">Registrar</button>
+    </div>
+    <!-- BOLSA -->
+    <div class="action-card" data-action="bolsa" data-coins="8" data-xp="10">
+      <div class="action-icon">🛍️</div>
+      <div class="action-name">Usé bolsa reutilizable</div>
+      <div class="action-reward"><span class="coin-small">🪙</span> 8 EcoCoins</div>
+      <div class="action-xp">+10 XP</div>
+      <button class="btn-register">Registrar</button>
+    </div>
+  </div>
+
+  <!-- Historial -->
+  <div class="history-panel">
+    <h3>Historial reciente</h3>
+    <ul class="history-list" id="history-list">
+      <li class="history-empty">Aún no has registrado acciones. ¡Empieza ahora!</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ===== RECOMPENSAS ===== -->
+<section class="page-section hidden" id="tab-recompensas">
+  <div class="section-header">
+    <h2>Tienda de Recompensas</h2>
+    <p>Canjea tus EcoCoins por beneficios reales en tu comunidad.</p>
+    <div class="coins-display-big">
+      <span class="coin-big">🪙</span>
+      <span id="coins-display">0</span> EcoCoins disponibles
+    </div>
+  </div>
+
+  <div class="rewards-grid">
+    <div class="reward-card" data-cost="50" data-name="Café Gratis">
+      <div class="reward-img">☕</div>
+      <div class="reward-name">Café Gratis</div>
+      <div class="reward-partner">☘ Café Verde Local</div>
+      <div class="reward-cost"><span>🪙</span> 50 EcoCoins</div>
+      <button class="btn-redeem">Canjear</button>
+    </div>
+    <div class="reward-card" data-cost="80" data-name="10% descuento mercado">
+      <div class="reward-img">🥑</div>
+      <div class="reward-name">10% en mercado ecológico</div>
+      <div class="reward-partner">☘ BioMarket Lima</div>
+      <div class="reward-cost"><span>🪙</span> 80 EcoCoins</div>
+      <button class="btn-redeem">Canjear</button>
+    </div>
+    <div class="reward-card popular" data-cost="120" data-name="Bolsa biodegradable premium">
+      <div class="popular-tag">🔥 Popular</div>
+      <div class="reward-img">🌿</div>
+      <div class="reward-name">Kit Bolsas Biodegradables</div>
+      <div class="reward-partner">☘ EcoStore Perú</div>
+      <div class="reward-cost"><span>🪙</span> 120 EcoCoins</div>
+      <button class="btn-redeem">Canjear</button>
+    </div>
+    <div class="reward-card" data-cost="200" data-name="Planta de interior">
+      <div class="reward-img">🪴</div>
+      <div class="reward-name">Planta de interior</div>
+      <div class="reward-partner">☘ Vivero Urbano</div>
+      <div class="reward-cost"><span>🪙</span> 200 EcoCoins</div>
+      <button class="btn-redeem">Canjear</button>
+    </div>
+    <div class="reward-card" data-cost="150" data-name="Día de transporte gratuito">
+      <div class="reward-img">🚌</div>
+      <div class="reward-name">Día de bus gratuito</div>
+      <div class="reward-partner">☘ Municipalidad</div>
+      <div class="reward-cost"><span>🪙</span> 150 EcoCoins</div>
+      <button class="btn-redeem">Canjear</button>
+    </div>
+    <div class="reward-card" data-cost="300" data-name="Taller de reciclaje">
+      <div class="reward-img">🎨</div>
+      <div class="reward-name">Taller de upcycling</div>
+      <div class="reward-partner">☘ Centro Comunitario</div>
+      <div class="reward-cost"><span>🪙</span> 300 EcoCoins</div>
+      <button class="btn-redeem">Canjear</button>
+    </div>
+  </div>
+</section>
+
+<!-- ===== RANKING ===== -->
+<section class="page-section hidden" id="tab-ranking">
+  <div class="section-header">
+    <h2>Ranking EcoHéroes</h2>
+    <p>Los guardianes del planeta más activos de este mes.</p>
+  </div>
+
+  <div class="ranking-podio">
+    <div class="podio-item second">
+      <div class="podio-avatar">SM</div>
+      <div class="podio-name">Sofía M.</div>
+      <div class="podio-coins">🪙 1,840</div>
+      <div class="podio-stand stand-2">2</div>
+    </div>
+    <div class="podio-item first">
+      <div class="crown">👑</div>
+      <div class="podio-avatar gold">CL</div>
+      <div class="podio-name">Carlos L.</div>
+      <div class="podio-coins">🪙 2,340</div>
+      <div class="podio-stand stand-1">1</div>
+    </div>
+    <div class="podio-item third">
+      <div class="podio-avatar">MR</div>
+      <div class="podio-name">María R.</div>
+      <div class="podio-coins">🪙 1,560</div>
+      <div class="podio-stand stand-3">3</div>
+    </div>
+  </div>
+
+  <div class="ranking-list">
+    <div class="rank-row rank-you">
+      <span class="rank-pos">4</span>
+      <span class="rank-avatar">TC</span>
+      <span class="rank-name">Tú <em>(Tu perfil)</em></span>
+      <span class="rank-coins" id="rank-your-coins">🪙 0</span>
+    </div>
+    <div class="rank-row">
+      <span class="rank-pos">5</span>
+      <span class="rank-avatar">JV</span>
+      <span class="rank-name">José V.</span>
+      <span class="rank-coins">🪙 1,230</span>
+    </div>
+    <div class="rank-row">
+      <span class="rank-pos">6</span>
+      <span class="rank-avatar">AL</span>
+      <span class="rank-name">Ana L.</span>
+      <span class="rank-coins">🪙 980</span>
+    </div>
+    <div class="rank-row">
+      <span class="rank-pos">7</span>
+      <span class="rank-avatar">PM</span>
+      <span class="rank-name">Pedro M.</span>
+      <span class="rank-coins">🪙 760</span>
+    </div>
+    <div class="rank-row">
+      <span class="rank-pos">8</span>
+      <span class="rank-avatar">LG</span>
+      <span class="rank-name">Lucía G.</span>
+      <span class="rank-coins">🪙 540</span>
+    </div>
+  </div>
+
+  <!-- Logros -->
+  <div class="achievements-section">
+    <h3>Tus Logros</h3>
+    <div class="achievements-grid">
+      <div class="achievement unlocked" title="Primera acción registrada">
+        <span class="ach-icon">🌱</span>
+        <span class="ach-name">Primera semilla</span>
+      </div>
+      <div class="achievement locked" title="Registra 10 acciones">
+        <span class="ach-icon">🔒</span>
+        <span class="ach-name">Eco Iniciado</span>
+      </div>
+      <div class="achievement locked" title="Alcanza 500 EcoCoins">
+        <span class="ach-icon">🔒</span>
+        <span class="ach-name">Coleccionista</span>
+      </div>
+      <div class="achievement locked" title="Recicla 5 tipos distintos">
+        <span class="ach-icon">🔒</span>
+        <span class="ach-name">Diversificado</span>
+      </div>
+      <div class="achievement locked" title="7 días seguidos reciclando">
+        <span class="ach-icon">🔒</span>
+        <span class="ach-name">Racha Verde</span>
+      </div>
+      <div class="achievement locked" title="Canjea tu primera recompensa">
+        <span class="ach-icon">🔒</span>
+        <span class="ach-name">Primer Canje</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="logo" style="color:var(--beige)">
+      <span class="logo-icon">♻</span>
+      <span class="logo-text">Eco<strong>Play</strong></span>
+    </div>
+    <p class="footer-tag">Cada acción cuenta. El planeta te lo agradece. 🌎</p>
+    <p class="footer-copy">© 2025 EcoPlay. Plataforma de gamificación ecológica.</p>
+  </div>
+</footer>
+
+<script src="js/app.js"></script>
+</body>
+</html>
